@@ -5,6 +5,13 @@ const API_SECRET = 'MzQyMTFmYTJjOWI1YjFkMGE1YzM5Mjll'
 const API_KEY = '8e9ef21242ca68226b68d84558b79fd9'
 let total_res = "";
 
+// 已上传文件的ID
+const FILE_IDS = [
+    "f103fc48e9bd43bc93005190c711ee95",
+    "fbb4042c9b7e4d6db37fbf6e579dd0bd",
+    "48879a1519904d00b5f6c5d70af44d23"
+];
+
 function getWebsocketUrl() {
     return new Promise((resolve, reject) => {
       const apiKey = API_KEY;
@@ -31,6 +38,7 @@ export default class TTSRecorder {
         this.appId = appId
         this.msgStore = null
         this.msgDom = null
+        this.ttsWS = null
     }
 
     // 连接websocket
@@ -82,6 +90,7 @@ export default class TTSRecorder {
                 }
             },
             "payload": {
+                "file_ids": FILE_IDS, // 使用文件ID
                 "message": {
                     "text": this.msgStore.list
                 }
